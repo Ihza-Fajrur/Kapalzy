@@ -11,11 +11,12 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 //screens
 import Menu_Awal from './screens/Menu_Awal';
+// import Navigasi_Beranda from './navigation/navigation_stack';
 import Daftar_Pesanan from './screens/Daftar_Pesanan';
 import Daftar_Pembatalan from './screens/Daftar_Pembatalan';
 import Lainnya from './screens/Lainnya';
-import { Menu_Detail_Pemesanan } from './screens/Menu_Detail_Pemesanan';
-import { Menu_Konfirmasi_Pesanan } from './screens/Menu_Konfirmasi_Pesanan';
+import Menu_Konfirmasi_Pesanan from './screens/Menu_Konfirmasi_Pesanan';
+import Menu_Detail_Pemesanan from './screens/Menu_Detail_Pemesanan';
 
 const Tab =createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -45,22 +46,22 @@ export default function App() {
         },
       })}
       >
-        <Tab.Screen name = 'Menu Awal' component={Menu_Awal} options={{ headerShown:false }}/>
+        <Tab.Screen name = 'Menu Awal' component={Navigasi_Beranda} options={{ headerShown:false }}/>
          <Tab.Screen name = 'Daftar Pesanan' component={Daftar_Pesanan} options={{ headerTitle:'Daftar Pemesanan', headerStyle:{backgroundColor:'#024D88'}, headerTitleAlign:'center', headerTitleStyle:{color:'#FFF'}}}/>
          <Tab.Screen name = 'Daftar Pembatalan' component={Daftar_Pembatalan} options={{ headerTitle:'Daftar Pembatalan', headerStyle:{backgroundColor:'#024D88'}, headerTitleAlign:'center', headerTitleStyle:{color:'#FFF'}}}/>
          <Tab.Screen name = 'Lainnya' component={Lainnya} options={{ headerShown:false }}/>
       </Tab.Navigator>
       
+      
     </NavigationContainer>
   );
 }
-function sub_screen(){
-  return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name="Menu Detail Pemesanan" component={Menu_Detail_Pemesanan} />
-        <Stack.Screen name="Menu Konfirmasi Pesanan" component={Menu_Konfirmasi_Pesanan} />
+function Navigasi_Beranda(){
+  return(
+      <Stack.Navigator>
+          <Stack.Screen name="Beranda" component={Menu_Awal} options={{ headerShown:false }}/>
+          <Stack.Screen name="Menu Konfirmasi Pesanan" component={Menu_Konfirmasi_Pesanan} />
+          <Stack.Screen name="Menu Detail Pemesanan" component={Menu_Detail_Pemesanan}/>
       </Stack.Navigator>
-    </NavigationContainer>
-  );
+  )
 }

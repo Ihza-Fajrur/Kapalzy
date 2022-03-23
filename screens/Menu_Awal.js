@@ -96,7 +96,7 @@ export default function Menu_Awal({navigation}){
                             
                         <View style={[{flexDirection: 'row', alignItems: 'center', justifyContent:'center', marginBottom:15}]}>
                             <TouchableOpacity style={[{width:320,height:40,marginTop:10,marginLeft:10,padding:10,flexDirection:'row',backgroundColor:'#EFF4F4',borderRadius:4, borderColor:'black',}]}
-                            onPress={()=>navigation.navigate('Menu Konfirmasi Pesanan')}>
+                            >
                                 <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold', textAlign:'left'}]}>
                                     Dewasa
                                 </Text>
@@ -122,7 +122,7 @@ export default function Menu_Awal({navigation}){
                             >
                             </TextInput>
                         </View> */}
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Menu Konfirmasi Pesanan')}>
                             <AntDesign name="search1" size={24} color="#FFF" />
                             <Text style={[{color:'#FFF', fontSize:20, lineHeight:19,}]}>
                                 Buat Tiket

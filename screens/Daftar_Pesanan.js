@@ -11,6 +11,44 @@ import { AntDesign } from '@expo/vector-icons';
 export default function Daftar_Pesanan({navigation}){
     return(
         <SafeAreaView style={styles.container}>
+            <View style={styles.body}>
+                <View style={styles.content_container}>
+                    <View style={styles.travelRoute}>
+                        <Text style={[{fontWeight:'bold', fontSize:15, marginRight:50}]}>
+                            Bakauheni
+                        </Text>
+                        <Entypo name="arrow-right" size={24} color="black" />
+                        <Text style={[{fontWeight:'bold', fontSize:15, marginLeft:50}]}>
+                            Merak
+                        </Text>
+                    </View>
+                    <View style={styles.travelSchedule}>
+                        <Text style={[{fontWeight:'bold', fontSize:12}]}>
+                            Jadwal Masuk Pelabuhan
+                        </Text>
+                        <Text style={[{fontSize:12}]}>
+                            Kamis, 17 Maret 2022
+                        </Text>
+                        <Text style={[{fontSize:12}]}>
+                            15.30 WIB
+                        </Text>
+                    </View>
+                    <View style={styles.travelService}>
+                        <Text style={[{fontWeight:'bold', fontSize:12}]}>
+                            Layanan
+                        </Text>
+                        <Text style={[{fontSize:12}]}>
+                            Express
+                        </Text>
+                    </View>
+                    <View style={styles.line}></View>
+                    <View style={styles.result}>
+                        <Text>
+                            Dewasa x 1
+                        </Text>
+                    </View>
+                </View>
+            </View>
         </SafeAreaView>
     );
 }

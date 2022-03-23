@@ -10,7 +10,8 @@ import { AntDesign } from '@expo/vector-icons';
 
 export default function Menu_Detail_Pemesanan({navigation}){
     return(
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView >
+            
         </SafeAreaView>
     );
 }
