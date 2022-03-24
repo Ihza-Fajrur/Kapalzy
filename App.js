@@ -60,8 +60,8 @@ function Navigasi_Beranda(){
   return(
       <Stack.Navigator>
           <Stack.Screen name="Beranda" component={Menu_Awal} options={{ headerShown:false }}/>
-          <Stack.Screen name="Menu Konfirmasi Pesanan" component={Menu_Konfirmasi_Pesanan} />
-          <Stack.Screen name="Menu Detail Pemesanan" component={Menu_Detail_Pemesanan}/>
+          <Stack.Screen name="Menu Konfirmasi Pesanan" component={Menu_Konfirmasi_Pesanan} options={{ headerShown:false }}/>
+          <Stack.Screen name="Menu Detail Pemesanan" component={Menu_Detail_Pemesanan} options={{ headerShown:false }}/>
       </Stack.Navigator>
   )
 }
