@@ -1,24 +1,59 @@
 import React, {useState, Component} from 'react';
-import { Text, View, Button, TextInput, SafeAreaView, TouchableOpacity,ScrollView } from 'react-native';
+import { Text, View, Button, TextInput, SafeAreaView, TouchableOpacity,ScrollView, Modal } from 'react-native';
 import styles from '../style/Menu_Awal_Style.js';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-import { Foundation } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import  DateTimePicker from '@react-native-community/datetimepicker';
+
 
 export default function Menu_Awal({navigation}){
+    const [modal,setModal] = useState(false);
+    const [modal2,setModal2] = useState(false);
+    const [modal3,setModal3] = useState(false);
+    const [date,setDate] = useState(new Date());
+    const [show,setShow] = useState(false);
+    const [mode,setMode] = useState('date');
+    const [dateText,setDateText] = useState('Pilih Tanggal Masuk');
+    const [timeText,setTimeText] = useState('Pilih Jam Masuk');
+    const onChange = (even, selectedDate) =>{
+        if(mode=='date'){
+            const currentDate = selectedDate || dateText;
+            setShow(false);
+            if(currentDate!=dateText){
+                setDate(currentDate);
+                let temp = new Date(currentDate);
+                let fDate = temp.getDate() + '/' + (temp.getMonth()+1) + '/' + temp.getFullYear();
+                setDateText(fDate);
+            }
+        }
+        else if(mode == 'time'){
+            const currentDate = selectedDate || timeText;
+            setShow(false);
+            if(currentDate!=timeText){
+                setDate(currentDate);
+                let temp = new Date(currentDate);
+                let fTime = temp.getHours() + '/' + temp.getMinutes();
+                setTimeText(fTime);
+            }
+        }
+    };
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    }
+    const showDatePicker = () => {
+        showMode('date');
+    }
+    const showTimePicker = () => {
+        showMode('time');
+    }
+
     return(
+            
+            
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                {/* <View style={styles.header_bar}>
-                <FontAwesome5 name="bars" size={24} color="black" />
-                </View >
-                <Text style={styles.header_text}>Grab Flight</Text> 
-                <View style={styles.header_bar}>
-                <FontAwesome5 name="home" size={24} color="black" />
-                </View> */}
             </View>
 
             {/* Batas Header - Body */}
@@ -34,7 +69,7 @@ export default function Menu_Awal({navigation}){
                             </Text>
                             <View style={styles.input_container2}>
                             <FontAwesome5 name="ship" size={24} color="#9D9D9D" />
-                                <TouchableOpacity style={styles.touchableContainer}>
+                                <TouchableOpacity style={styles.touchableContainer} onPress={()=> setModal(!modal)}>
                                     <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold'}]}>
                                         Pilih Pelabuhan Awal
                                     </Text>
@@ -47,7 +82,7 @@ export default function Menu_Awal({navigation}){
                             </Text>
                             <View style={styles.input_container2}>
                             <FontAwesome5 name="ship" size={24} color="#9D9D9D" />
-                                <TouchableOpacity style={styles.touchableContainer}>
+                                <TouchableOpacity style={styles.touchableContainer} onPress={()=> setModal2(!modal2)}>
                                     <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold'}]}>
                                         Pilih Pelabuhan Tujuan
                                     </Text>
@@ -60,7 +95,7 @@ export default function Menu_Awal({navigation}){
                             </Text>
                             <View style={styles.input_container2}>
                             <Ionicons name="people" size={24} color="#9D9D9D" />
-                                <TouchableOpacity style={styles.touchableContainer}>
+                                <TouchableOpacity style={styles.touchableContainer} onPress={()=> setModal3(!modal3)}>
                                     <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold'}]}>
                                         Pilih Layanan
                                     </Text>
@@ -73,9 +108,9 @@ export default function Menu_Awal({navigation}){
                             </Text>
                             <View style={styles.input_container2}>
                             <FontAwesome5 name="calendar" size={24} color="#9D9D9D"/>
-                                <TouchableOpacity style={styles.touchableContainer}>
+                                <TouchableOpacity style={styles.touchableContainer} onPress={()=>{showDatePicker()}}>
                                     <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold'}]}>
-                                        Pilih Tanggal Masuk
+                                        {dateText}
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -86,42 +121,35 @@ export default function Menu_Awal({navigation}){
                             </Text>
                             <View style={styles.input_container2}>
                             <FontAwesome5 name="clock" size={24} color="#9D9D9D" />
-                                <TouchableOpacity style={styles.touchableContainer}>
+                                <TouchableOpacity style={styles.touchableContainer} onPress={()=>{showTimePicker()}}>
                                     <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold'}]}>
-                                        Pilih Jam Masuk
+                                        {timeText}
                                     </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
-                            
+                        {show && (
+                            <DateTimePicker testID='dateTimePicker'
+                            value={date}
+                            mode={mode} is24Hour={true}  onChange={onChange} on/>
+                        )}
                         <View style={[{flexDirection: 'row', alignItems: 'center', justifyContent:'center', marginBottom:15}]}>
-                            <TouchableOpacity style={[{width:320,height:40,marginTop:10,marginLeft:10,padding:10,flexDirection:'row',backgroundColor:'#EFF4F4',borderRadius:4, borderColor:'black',}]}
-                            >
-                                <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold', textAlign:'left'}]}>
-                                    Dewasa
-                                </Text>
-                                {/* <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold', textAlign:'right'}]}>
-                                    1 Orang
-                                </Text> */}
+                            <TouchableOpacity style={[{width:320,height:40,marginTop:10,marginLeft:10,padding:10,flexDirection:'row',backgroundColor:'#EFF4F4',borderRadius:4, borderColor:'black',}]}>
+                                <View>
+                                    <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold', textAlign:'left'}]}>
+                                        Dewasa
+                                    </Text>
+                                </View>
+                                <View style={[{marginLeft:200, flexDirection:'row',}]}>
+                                    <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold', textAlign:'right'}]}>
+                                        1
+                                    </Text>
+                                    <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold', textAlign:'right'}]}>
+                                        Orang
+                                    </Text>
+                                </View>
                             </TouchableOpacity>
                         </View>
-                        {/* <View style={styles.input_container2}>
-                            <TextInput 
-                                style={[{paddingLeft:5,
-                                    width:330,
-                                    height:45,
-                                    borderWidth:1,
-                                    borderColor: '#777',
-                                    padding: 8,
-                                    borderRadius:8,
-                                    margin: 10,}]}
-                                placeholder='Dewasa'
-                                underlineColorAndroid='transparent'
-                                placeholderTextColor={'black'}
-                                fontWeight={'bold'}
-                            >
-                            </TextInput>
-                        </View> */}
                         <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Menu Konfirmasi Pesanan')}>
                             <AntDesign name="search1" size={24} color="#FFF" />
                             <Text style={[{color:'#FFF', fontSize:20, lineHeight:19,}]}>
@@ -130,36 +158,112 @@ export default function Menu_Awal({navigation}){
                         </TouchableOpacity>
                     </View>
                 </View>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modal}
+                        onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModal(!modal);
+                        }}
+                    >
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <View style={styles.modalHeader}>
+                                    <Text style={[{color:'#FFF', textAlign:'center', fontSize:13, marginLeft:100, marginRight:100, fontWeight:'bold'}]}>
+                                        PILIH PELABUHAN AWAL
+                                    </Text>
+                                </View>
+                                <View style={[{padding:20,}]}>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal(!modal)}>
+                                        <Text style={[{ fontSize:11 }]}>
+                                            Lampung
+                                        </Text>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Bakauheni
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal(!modal)}>
+                                        <Text style={[{ fontSize:11 }]}>
+                                            Serang
+                                        </Text>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Merak
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modal2}
+                        onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModal2(!modal2);
+                        }}
+                    >
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <View style={styles.modalHeader}>
+                                    <Text style={[{color:'#FFF', textAlign:'center', fontSize:13, marginLeft:100, marginRight:100, fontWeight:'bold'}]}>
+                                        PILIH PELABUHAN TUJUAN
+                                    </Text>
+                                </View>
+                                <View style={[{padding:20,}]}>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal2(!modal2)}>
+                                        <Text style={[{ fontSize:11 }]}>
+                                            Lampung
+                                        </Text>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Bakauheni
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal2(!modal2)}>
+                                        <Text style={[{ fontSize:11 }]}>
+                                            Serang
+                                        </Text>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Merak
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modal3}
+                        onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModal3(!modal3);
+                        }}
+                    >
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
+                                <View style={styles.modalHeader}>
+                                    <Text style={[{color:'#FFF', textAlign:'center', fontSize:13, marginLeft:100, marginRight:100, fontWeight:'bold'}]}>
+                                        PILIH LAYANAN
+                                    </Text>
+                                </View>
+                                <View style={[{padding:20,}]}>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal3(!modal3)}>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Express
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal3(!modal3)}>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Reguler
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+                    </Modal>
             </ScrollView>
-
-            {/* Batas Body - Footer */}
-
-            {/* <View style={styles.footer}>
-                <View style={styles.footerIcon}>
-                    <Entypo name="home" size={35} color="#00579C" />
-                    <Text style={[{color:'#00579C',}]}>
-                        Beranda
-                    </Text>
-                </View>
-                <View style={styles.footerIcon}>
-                    <Foundation name="book" size={35} color="#00579C" />
-                    <Text style={[{color:'#00579C',}]}>
-                        Pesanan Saya
-                    </Text>
-                </View>
-                <View style={styles.footerIcon}>
-                    <MaterialCommunityIcons name="cash-refund" size={35} color="#00579C" />
-                    <Text style={[{color:'#00579C',}]}>
-                        Pembatalan
-                    </Text>
-                </View>
-                <View style={styles.footerIcon}>
-                    <FontAwesome5 name="bars" size={35} color="#00579C" />
-                    <Text style={[{color:'#00579C',}]}>
-                        Lainnya
-                    </Text>
-                </View>
-            </View> */}
         </SafeAreaView>
     );
 }

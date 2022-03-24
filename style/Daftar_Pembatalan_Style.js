@@ -1,11 +1,13 @@
 import { StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
+        flex: 1,
         // marginTop: 25,
         // // marginTop: StatusBar.currentHeight,
         // padding:20,
         // // backgroundColor:"#FFF",
+        alignContent:'center',
+        justifyContent:'center',
       },
       scrollView:{
         // backgroundColor: '#FFF',
@@ -52,6 +54,7 @@ const styles = StyleSheet.create({
       
   
       content_container: {
+        alignSelf:'center',
         // backgroundColor: '#FFF',
         // borderRadius:20,
         // // shadowColor: "#000",

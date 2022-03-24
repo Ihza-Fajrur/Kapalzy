@@ -11,6 +11,10 @@ import { AntDesign } from '@expo/vector-icons';
 export default function Daftar_Pembatalan({navigation}){
     return(
         <SafeAreaView style={styles.container}>
+            <Text style={[{fontSize:19, fontWeight:'bold', color:'#00579C', textAlign:'center', }]}>
+                Tidak ada Aktivitas Pembatalan Tiket
+            </Text>
+            
         </SafeAreaView>
     );
 }

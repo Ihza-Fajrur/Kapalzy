@@ -56,9 +56,16 @@ export default function Menu_Konfirmasi_Pesanan({navigation}){
                         </View>
                         <View style={styles.line}></View>
                         <View style={styles.result}>
-                            <Text>
-                                Dewasa x 1
-                            </Text>
+                            <View>
+                                <Text style={[{marginRight:160}]}>
+                                    Dewasa x 1
+                                </Text>
+                            </View>
+                            <View>
+                                <Text style={[{}]}>
+                                    Rp. 65000
+                                </Text>
+                            </View>
                         </View>
                     </View>
                     <View style={styles.endPrice}>
@@ -67,7 +74,7 @@ export default function Menu_Konfirmasi_Pesanan({navigation}){
                                 Total
                             </Text>
                         </View>
-                        <View style={[{}]}>
+                        <View style={[{textAlign:'right'}]}>
                             <Text style={[{color:'black', fontWeight:'bold', fontSize:19,}]}>
                                 Rp. 65000
                             </Text>

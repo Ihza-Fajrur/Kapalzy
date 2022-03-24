@@ -101,6 +101,11 @@ const styles = StyleSheet.create({
         // justifyContent:'center',
         
       },
+      result:{
+        flexDirection:'row',
+        alignContent:'center',
+        justifyContent:'center',
+      },
   
       input_container1:{
         // marginBottom:10,
