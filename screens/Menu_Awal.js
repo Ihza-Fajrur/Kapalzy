@@ -11,6 +11,9 @@ export default function Menu_Awal({navigation}){
     const [modal,setModal] = useState(false);
     const [modal2,setModal2] = useState(false);
     const [modal3,setModal3] = useState(false);
+    const [layanan,setLayanan] = useState('Pilih Layanan')
+    const [awal,setAwal] = useState('Pilih Pelabuhan Awal');
+    const [tujuan,setTujuan] = useState('Pilih Pelabuhan Tujuan');
     const [date,setDate] = useState(new Date());
     const [show,setShow] = useState(false);
     const [mode,setMode] = useState('date');
@@ -33,7 +36,7 @@ export default function Menu_Awal({navigation}){
             if(currentDate!=timeText){
                 setDate(currentDate);
                 let temp = new Date(currentDate);
-                let fTime = temp.getHours() + '/' + temp.getMinutes();
+                let fTime = temp.getHours() + '.' + temp.getMinutes();
                 setTimeText(fTime);
             }
         }
@@ -71,7 +74,7 @@ export default function Menu_Awal({navigation}){
                             <FontAwesome5 name="ship" size={24} color="#9D9D9D" />
                                 <TouchableOpacity style={styles.touchableContainer} onPress={()=> setModal(!modal)}>
                                     <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold'}]}>
-                                        Pilih Pelabuhan Awal
+                                        {awal}
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -84,7 +87,7 @@ export default function Menu_Awal({navigation}){
                             <FontAwesome5 name="ship" size={24} color="#9D9D9D" />
                                 <TouchableOpacity style={styles.touchableContainer} onPress={()=> setModal2(!modal2)}>
                                     <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold'}]}>
-                                        Pilih Pelabuhan Tujuan
+                                        {tujuan}
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -97,7 +100,7 @@ export default function Menu_Awal({navigation}){
                             <Ionicons name="people" size={24} color="#9D9D9D" />
                                 <TouchableOpacity style={styles.touchableContainer} onPress={()=> setModal3(!modal3)}>
                                     <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold'}]}>
-                                        Pilih Layanan
+                                        {layanan}
                                     </Text>
                                 </TouchableOpacity>
                             </View>
@@ -175,7 +178,7 @@ export default function Menu_Awal({navigation}){
                                     </Text>
                                 </View>
                                 <View style={[{padding:20,}]}>
-                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal(!modal)}>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal(!modal); setAwal('Bakauheni')}}>
                                         <Text style={[{ fontSize:11 }]}>
                                             Lampung
                                         </Text>
@@ -183,7 +186,7 @@ export default function Menu_Awal({navigation}){
                                             Bakauheni
                                         </Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal(!modal)}>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal(!modal); setAwal('Merak')} }>
                                         <Text style={[{ fontSize:11 }]}>
                                             Serang
                                         </Text>
@@ -212,7 +215,7 @@ export default function Menu_Awal({navigation}){
                                     </Text>
                                 </View>
                                 <View style={[{padding:20,}]}>
-                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal2(!modal2)}>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal2(!modal2); setTujuan('Bakauheni')} }>
                                         <Text style={[{ fontSize:11 }]}>
                                             Lampung
                                         </Text>
@@ -220,7 +223,7 @@ export default function Menu_Awal({navigation}){
                                             Bakauheni
                                         </Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal2(!modal2)}>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal2(!modal2); setTujuan('Merak')} }>
                                         <Text style={[{ fontSize:11 }]}>
                                             Serang
                                         </Text>
@@ -249,12 +252,12 @@ export default function Menu_Awal({navigation}){
                                     </Text>
                                 </View>
                                 <View style={[{padding:20,}]}>
-                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal3(!modal3)}>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal3(!modal3); setLayanan('Express')} }>
                                         <Text style={[{ fontSize:16 }]}>
                                             Express
                                         </Text>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => setModal3(!modal3)}>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal3(!modal3); setLayanan('Reguler')} }>
                                         <Text style={[{ fontSize:16 }]}>
                                             Reguler
                                         </Text>
