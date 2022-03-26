@@ -1,20 +1,47 @@
 import React, {useState, Component} from 'react';
-import { Text, View, Button, TextInput, SafeAreaView, TouchableOpacity,ScrollView, Modal } from 'react-native';
+import { Text, View, Button, TextInput, SafeAreaView, TouchableOpacity,ScrollView, Modal, FlatList } from 'react-native';
 import styles from '../style/Menu_Awal_Style.js';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import  DateTimePicker from '@react-native-community/datetimepicker';
+import {Pelabuhan, Pemesan, Pesanan} from '../database/data.js';
+// import { FlatList } from 'react-native-web';
 
+// function cal(orang,layanan){
+//     const [temp,setTemp] = useState();
+//     if (layanan=='Express'){
+//         setTemp(orang*65000);
+//     }
+//     else if(layanan=='Reguler'){
+//         setTemp(orang*30000);
+//         };
+//     return temp;
+// }
 
 export default function Menu_Awal({navigation}){
+    // Modal Section
     const [modal,setModal] = useState(false);
     const [modal2,setModal2] = useState(false);
     const [modal3,setModal3] = useState(false);
+
+    // Data Export
+    // const [PA,setPA] = useState(Pelabuhan);
+    // const [PT,setPT] = useState(Pelabuhan);
+    // const [LYN,setLYN] = useState(Pesanan);
+    // <FlatList data={PA}renderItem={({item})=>(<Text style={[{ fontSize:13 }]}>{item.plbh_kota}</Text>)}/>
+
+;
+    
+
+    // Other Constant
     const [layanan,setLayanan] = useState('Pilih Layanan')
     const [awal,setAwal] = useState('Pilih Pelabuhan Awal');
     const [tujuan,setTujuan] = useState('Pilih Pelabuhan Tujuan');
     const [date,setDate] = useState(new Date());
+    const [orang,setOrang] = useState();
+    // const [harga,setHarga] = useState(cal(orang,layanan));
+
     const [show,setShow] = useState(false);
     const [mode,setMode] = useState('date');
     const [dateText,setDateText] = useState('Pilih Tanggal Masuk');
@@ -53,11 +80,7 @@ export default function Menu_Awal({navigation}){
     }
 
     return(
-            
-            
         <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
-            </View>
 
             {/* Batas Header - Body */}
             <ScrollView style={styles.scrollView}>
@@ -72,10 +95,12 @@ export default function Menu_Awal({navigation}){
                             </Text>
                             <View style={styles.input_container2}>
                             <FontAwesome5 name="ship" size={24} color="#9D9D9D" />
+
                                 <TouchableOpacity style={styles.touchableContainer} onPress={()=> setModal(!modal)}>
                                     <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold'}]}>
                                         {awal}
                                     </Text>
+                                    
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -136,24 +161,14 @@ export default function Menu_Awal({navigation}){
                             value={date}
                             mode={mode} is24Hour={true}  onChange={onChange} on/>
                         )}
-                        <View style={[{flexDirection: 'row', alignItems: 'center', justifyContent:'center', marginBottom:15}]}>
-                            <TouchableOpacity style={[{width:320,height:40,marginTop:10,marginLeft:10,padding:10,flexDirection:'row',backgroundColor:'#EFF4F4',borderRadius:4, borderColor:'black',}]}>
-                                <View>
-                                    <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold', textAlign:'left'}]}>
-                                        Dewasa
-                                    </Text>
-                                </View>
-                                <View style={[{marginLeft:200, flexDirection:'row',}]}>
-                                    <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold', textAlign:'right'}]}>
-                                        1
-                                    </Text>
-                                    <Text style={[{color:'black', fontSize:14, lineHeight:19, fontWeight:'bold', textAlign:'right'}]}>
-                                        Orang
-                                    </Text>
-                                </View>
-                            </TouchableOpacity>
+                        <View style={styles.juml}>
+                            <Text >Dewasa</Text>
+                            <View style={[{flexDirection:'row'}]}>
+                                <TextInput placeholder={'1'}  style={[{marginRight:3, fontWeight:'bold'}]} onChangeText={(val)=>setOrang(val)}/>
+                                <Text >Orang</Text>
+                            </View>      
                         </View>
-                        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Menu Konfirmasi Pesanan')}>
+                        <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Menu Konfirmasi Pesanan',{Awal:awal,Tujuan:tujuan,Layanan:layanan,Tanggal:dateText,Jam:timeText,Orang:orang, Harga:layanan})}>
                             <AntDesign name="search1" size={24} color="#FFF" />
                             <Text style={[{color:'#FFF', fontSize:20, lineHeight:19,}]}>
                                 Buat Tiket
@@ -194,6 +209,30 @@ export default function Menu_Awal({navigation}){
                                             Merak
                                         </Text>
                                     </TouchableOpacity>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal(!modal); setAwal('Ketapang')} }>
+                                        <Text style={[{ fontSize:11 }]}>
+                                            Banyuwangi
+                                        </Text>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Ketapang
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal(!modal); setAwal('Kalimas')} }>
+                                        <Text style={[{ fontSize:11 }]}>
+                                            Surabaya
+                                        </Text>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Kalimas
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal(!modal); setAwal('Tanjung Pandan')} }>
+                                        <Text style={[{ fontSize:11 }]}>
+                                            Bangka Belitung
+                                        </Text>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Tanjung Pandan
+                                        </Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -229,6 +268,30 @@ export default function Menu_Awal({navigation}){
                                         </Text>
                                         <Text style={[{ fontSize:16 }]}>
                                             Merak
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal(!modal); setAwal('Ketapang')} }>
+                                        <Text style={[{ fontSize:11 }]}>
+                                            Banyuwangi
+                                        </Text>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Ketapang
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal(!modal); setAwal('Kalimas')} }>
+                                        <Text style={[{ fontSize:11 }]}>
+                                            Surabaya
+                                        </Text>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Kalimas
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={[{marginBottom:15,}]} onPress={() => {setModal(!modal); setAwal('Tanjung Pandan')} }>
+                                        <Text style={[{ fontSize:11 }]}>
+                                            Bangka Belitung
+                                        </Text>
+                                        <Text style={[{ fontSize:16 }]}>
+                                            Tanjung Pandan
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
@@ -270,4 +333,3 @@ export default function Menu_Awal({navigation}){
         </SafeAreaView>
     );
 }
-

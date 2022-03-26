@@ -1,5 +1,5 @@
 import React, {useState, Component} from 'react';
-import { Text, View, Button, TextInput, SafeAreaView, TouchableOpacity,ScrollView } from 'react-native';
+import { Text, View, Button, TextInput, SafeAreaView, TouchableOpacity,ScrollView, Modal } from 'react-native';
 import styles from '../style/Menu_Detail_Pemesanan_Style';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -8,7 +8,17 @@ import { Foundation } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function Menu_Detail_Pemesanan({navigation}){
+export default function Menu_Detail_Pemesanan({navigation,route}){
+    const [awal,setAwal] = useState(route.params.Awal);
+    const [tujuan,setTujuan] = useState(route.params.Tujuan);
+    const [tanggal,setTanggal] = useState(route.params.Tanggal);
+    const [jam,setJam] = useState(route.params.Jam);
+    const [layanan,setLayanan] = useState(route.params.Layanan);
+    const [orang,setOrang] = useState(route.params.Orang);
+    const [harga,setHarga] = useState(route.params.Harga);
+
+    //Modal
+    const [modal,setModal] = useState(false);
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -25,11 +35,11 @@ export default function Menu_Detail_Pemesanan({navigation}){
                     <View style={styles.summaryContainer}>
                         <View style={styles.travelRoute}>
                             <Text style={[{fontWeight:'bold', fontSize:15, marginRight:50}]}>
-                                Bakauheni
+                                {JSON.stringify(awal).replace(/"/g, '')}
                             </Text>
                             <Entypo name="arrow-right" size={24} color="black" />
                             <Text style={[{fontWeight:'bold', fontSize:15, marginLeft:50}]}>
-                                Merak
+                                {JSON.stringify(tujuan).replace(/"/g, '')}
                             </Text>
                         </View>
                         <View style={styles.travelSchedule}>
@@ -37,10 +47,10 @@ export default function Menu_Detail_Pemesanan({navigation}){
                                 Jadwal Masuk Pelabuhan
                             </Text>
                             <Text style={[{fontSize:12}]}>
-                                Kamis, 17 Maret 2022
+                                {JSON.stringify(tanggal).replace(/"/g, '')}
                             </Text>
                             <Text style={[{fontSize:12}]}>
-                                15.30 WIB
+                                {JSON.stringify(jam).replace(/"/g, '')} WIB
                             </Text>
                         </View>
                         <View style={styles.travelService}>
@@ -48,13 +58,13 @@ export default function Menu_Detail_Pemesanan({navigation}){
                                 Layanan
                             </Text>
                             <Text style={[{fontSize:12}]}>
-                                Express
+                                {JSON.stringify(layanan).replace(/"/g, '')}
                             </Text>
                         </View>
                         <View style={styles.line}></View>
                         <View style={styles.result}>
                             <Text>
-                                Dewasa x 1
+                                Dewasa x {JSON.stringify(orang).replace(/"/g, '')}
                             </Text>
                         </View>
                     </View>
@@ -87,7 +97,8 @@ export default function Menu_Detail_Pemesanan({navigation}){
                     </View>
 
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.buttonSubmit} onPress={()=>navigation.navigate('Menu Detail Pemesanan')}>
+                        <TouchableOpacity style={styles.buttonSubmit} onPress={()=> setModal(!modal)}>
+                        {/* ()=>navigation.navigate('Menu Detail Pemesanan') */}
                             <Text style={[{color:'#FFF', fontSize:19, lineHeight:19, fontWeight:'bold'}]}>
                                 Submit
                             </Text>
@@ -95,6 +106,46 @@ export default function Menu_Detail_Pemesanan({navigation}){
                     </View>
                 </View>
             </ScrollView>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modal}
+                onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setModal(!modal);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View style={styles.modalHeader}>
+                            <Text style={[{color:'#FFF', textAlign:'center', fontSize:13, marginLeft:100, marginRight:100, fontWeight:'bold'}]}>
+                                Pembayaran
+                            </Text>
+                        </View>
+                        <View style={[{padding:20,}]}>
+                            <Text style={[{fontWeight:'bold', textAlign:'center'}]}>
+                                TRANSFER KE NOMOR REKENING
+                            </Text>
+                            <Text style={[{fontWeight:'bold', textAlign:'center'}]}>
+                                081292834124
+                            </Text>
+                            <View style={[{flexDirection:'row', alignSelf:'center', marginTop:10}]}>
+                                <Text style={[{fontWeight:'bold'}]}>
+                                    Bank
+                                </Text>
+                                <Text style={[{marginLeft:2, fontWeight:'bold'}]}>
+                                    BAC
+                                </Text>
+                            </View>
+                            <TouchableOpacity style={[{backgroundColor:'#EE9E54', borderRadius:5, width:100, padding:5, alignSelf:'center', marginTop:10}]} onPress={()=>navigation.navigate('Daftar Pemesanan',{Awal:awal,Tujuan:tujuan,Tanggal:tanggal,Jam:jam,Layanan:layanan,Orang:orang,Harga:harga})}>
+                                <Text style={[{color:'#FFF', textAlign:'center', fontWeight:'bold'}]}>
+                                    Selesai
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </SafeAreaView>
     );
 }

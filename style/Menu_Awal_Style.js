@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
       backgroundColor:'#EFF4F4',
       borderRadius:4,
       borderColor:'black',
+      elevation:3,
       // borderWidth:1,
     },
     textInput: {
@@ -125,6 +126,19 @@ const styles = StyleSheet.create({
       borderRadius:8,
       margin: 10,
     },
+    juml:{
+      flexDirection:'row',
+      justifyContent:'space-between',
+      width:347,
+      // borderWidth:0.5,
+      borderRadius:5,
+      padding:10,
+      height:40,
+      marginVertical:15,
+      elevation:5,
+      // borderColor:'#00579C',
+      backgroundColor:'#EFF4F4',
+  },
     footerIcon: {
       shadowColor: "#000",
       shadowOffset: {

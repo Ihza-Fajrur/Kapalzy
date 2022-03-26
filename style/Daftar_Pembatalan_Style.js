@@ -4,10 +4,10 @@ const styles = StyleSheet.create({
         flex: 1,
         // marginTop: 25,
         // // marginTop: StatusBar.currentHeight,
-        // padding:20,
+        padding:30,
         // // backgroundColor:"#FFF",
-        alignContent:'center',
-        justifyContent:'center',
+        // alignContent:'center',
+        // justifyContent:'center',
       },
       scrollView:{
         // backgroundColor: '#FFF',
@@ -52,23 +52,6 @@ const styles = StyleSheet.create({
         // backgroundColor: '#E5E5E5',
       },
       
-  
-      content_container: {
-        alignSelf:'center',
-        // backgroundColor: '#FFF',
-        // borderRadius:20,
-        // // shadowColor: "#000",
-        // // shadowOffset: {
-        // //   width: 0,
-        // //   height: 2,
-        // // },
-        // // shadowOpacity: 0.25,
-        // // shadowRadius: 4,
-        // elevation: 5,
-        // padding:20,
-  
-      },
-  
       content_header:{
         // alignItems:'center',
         // justifyContent:'center',
@@ -137,6 +120,43 @@ const styles = StyleSheet.create({
         // justifyContent: 'center',
         // marginLeft:10,
         // marginRight:10,
-      }
+      },
+      content_container: {
+        backgroundColor: '#E9E9E9',
+        borderRadius:3,
+        // shadowColor: "#000",
+        // shadowOffset: {
+        //   width: 0,
+        //   height: 2,
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 4,
+        elevation: 5,
+        padding:20,
+      },
+      travelRoute:{
+        flexDirection: 'row',
+        alignItems:'center',
+        justifyContent:'center',
+      },
+
+      travelSchedule:{
+        marginTop:18,
+      },
+
+      travelService:{
+        marginTop:15,
+      },
+
+      line:{
+          borderBottomColor:'black',
+          borderBottomWidth:1,
+          marginTop:10,
+          marginBottom:20,
+      },
+      
+      result:{
+        
+      },
 });
 export default styles;

@@ -8,11 +8,20 @@ import { Foundation } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function Menu_Konfirmasi_Pesanan({navigation}){
+
+export default function Menu_Konfirmasi_Pesanan({navigation,route}){
+    const [awal,setAwal] = useState(route.params.Awal);
+    const [tujuan,setTujuan] = useState(route.params.Tujuan);
+    const [tanggal,setTanggal] = useState(route.params.Tanggal);
+    const [jam,setJam] = useState(route.params.Jam);
+    const [layanan,setLayanan] = useState(route.params.Layanan);
+    const [orang,setOrang] = useState(route.params.Orang);
+    const [harga,setHarga] = useState(orang*65000);
+
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                
+
             </View>
             <View style={styles.body}>
                 <View style={styles.content_container}>
@@ -28,11 +37,11 @@ export default function Menu_Konfirmasi_Pesanan({navigation}){
                     <View style={styles.summaryContainer}>
                         <View style={styles.travelRoute}>
                             <Text style={[{fontWeight:'bold', fontSize:15, marginRight:50}]}>
-                                Bakauheni
+                                {JSON.stringify(awal).replace(/"/g, '')}
                             </Text>
                             <Entypo name="arrow-right" size={24} color="black" />
                             <Text style={[{fontWeight:'bold', fontSize:15, marginLeft:50}]}>
-                                Merak
+                                {JSON.stringify(tujuan).replace(/"/g, '')}
                             </Text>
                         </View>
                         <View style={styles.travelSchedule}>
@@ -40,10 +49,10 @@ export default function Menu_Konfirmasi_Pesanan({navigation}){
                                 Jadwal Masuk Pelabuhan
                             </Text>
                             <Text style={[{fontSize:12}]}>
-                                Kamis, 17 Maret 2022
+                                {JSON.stringify(tanggal).replace(/"/g, '')}
                             </Text>
                             <Text style={[{fontSize:12}]}>
-                                15.30 WIB
+                                {JSON.stringify(jam).replace(/"/g, '')} WIB
                             </Text>
                         </View>
                         <View style={styles.travelService}>
@@ -51,19 +60,19 @@ export default function Menu_Konfirmasi_Pesanan({navigation}){
                                 Layanan
                             </Text>
                             <Text style={[{fontSize:12}]}>
-                                Express
+                                {JSON.stringify(layanan).replace(/"/g, '')}
                             </Text>
                         </View>
                         <View style={styles.line}></View>
                         <View style={styles.result}>
                             <View>
                                 <Text style={[{marginRight:160}]}>
-                                    Dewasa x 1
+                                    Dewasa x {JSON.stringify(orang).replace(/"/g, '')}
                                 </Text>
                             </View>
                             <View>
                                 <Text style={[{}]}>
-                                    Rp. 65000
+                                    Rp.{JSON.stringify(harga).replace(/"/g, '')}
                                 </Text>
                             </View>
                         </View>
@@ -76,7 +85,7 @@ export default function Menu_Konfirmasi_Pesanan({navigation}){
                         </View>
                         <View style={[{textAlign:'right'}]}>
                             <Text style={[{color:'black', fontWeight:'bold', fontSize:19,}]}>
-                                Rp. 65000
+                                Rp.{JSON.stringify(harga).replace(/"/g, '')}
                             </Text>
                         </View>
                     </View>
@@ -86,7 +95,7 @@ export default function Menu_Konfirmasi_Pesanan({navigation}){
                                 Kembali
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonLanjutkan} onPress={()=>navigation.navigate('Menu Detail Pemesanan')}>
+                        <TouchableOpacity style={styles.buttonLanjutkan} onPress={()=>navigation.navigate('Menu Detail Pemesanan',{Awal:awal,Tujuan:tujuan,Tanggal:tanggal,Jam:jam,Layanan:layanan,Orang:orang,Harga:harga})}>
                             <Text style={[{color:'#FFF', fontSize:20, lineHeight:19, fontWeight:'bold'}]}>
                                 Lanjutkan
                             </Text>
